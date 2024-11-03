@@ -34,6 +34,8 @@
     </div>
 
 
+    {{ $posts->links() }}
+
     <div class="py-4 px-4 mx-auto max-w-screen-xl lg:py-8 lg:px-0">
         <div class="grid gap-8 md:grid-cols-2 py lg:grid-cols-3 py">
             @forelse ($posts as $post)
@@ -77,13 +79,14 @@
                     </div>
                 </article>
 
-                @empty
-                    <div>
-                        <p class="fonr-semibold text-xl my-4">article not found !</p>
-                        <a href="/posts" class="block text-blue-600 hover:underline">&laquo; Back to all posts</a>
-                    </div>
-                @endforelse
-            </div>
+            @empty
+                <div>
+                    <p class="fonr-semibold text-xl my-4">article not found !</p>
+                    <a href="/posts" class="block text-blue-600 hover:underline">&laquo; Back to all posts</a>
+                </div>
+            @endforelse
         </div>
+    </div>
+    {{ $posts->links() }}
 
-    </x-layout>
+</x-layout>
