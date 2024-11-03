@@ -10,6 +10,7 @@ use Illuminate\Support\Arr;
 class Post extends Model
 {
     use HasFactory;  // Menambahkan trait HasFactory
+    protected $with = ['author','category'];
 
     protected $fillable = ['title', 'author', 'slug', 'body'];
 

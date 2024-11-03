@@ -1,8 +1,8 @@
 <?php
 
+use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
-use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,7 +14,9 @@ Route::get('/about', function () {
 });
 
 Route::get('/posts', function () {
-    return view('posts', ['title' => 'Blog', 'posts' => Post::all()]);
+    //$post = post::with(['author', 'category'])->latest()->get();
+    $post = post::latest()->get();
+    return view('posts', ['title' => 'Blog', 'posts' => $post]);
 });
 
 Route::get('/post/{post:slug}', function (Post $Post) {
@@ -23,14 +25,17 @@ Route::get('/post/{post:slug}', function (Post $Post) {
 });
 
 Route::get('/author/{user:username}', function (User $user) {
+    //$posts = $user->posts->load('author', 'category');
 
-    return view('posts', ['title' => count($user-> posts ) ." " . 'Articles by ' . $user->name , 'posts' => 
-    $user ->posts]);
+    return view('posts', ['title' => count($user->posts) . " " . 'Articles by ' . $user->name,
+        'posts' => $user->posts]);
 });
-Route::get('/categories/{category:slug}', function (Category $category) {
 
-    return view('posts', ['title' =>  'Articles in: ' . $category->name , 'posts' => 
-    $category->posts]);
+Route::get('/categories/{category:slug}', function (Category $category) {
+    //$posts = $category->posts->load('author', 'category');
+
+    return view('posts', ['title' => 'Articles in: ' . $category->name, 'posts' =>
+        $category->posts]);
 });
 
 Route::get('/contact', function () {
