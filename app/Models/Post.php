@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\arr;
+use Illuminate\Support\Arr;
 
 class Post extends Model
 {
-  protected $fillable = ['title', 'author', 'slug', 'body'];
+    use HasFactory;  // Menambahkan trait HasFactory
+
+    protected $fillable = ['title', 'author', 'slug', 'body'];
 }
