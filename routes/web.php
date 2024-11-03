@@ -3,7 +3,9 @@
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', function () {
     return view('home', ['title' => 'Home Page']);
@@ -15,8 +17,8 @@ Route::get('/about', function () {
 
 Route::get('/posts', function () {
     //$post = post::with(['author', 'category'])->latest()->get();
-    $post = post::latest()->get();
-    return view('posts', ['title' => 'Blog', 'posts' => $post]);
+    return view('posts', ['title' => 'Blog', 'posts' =>Post::filter(request(['search', 'category', 'author']))->latest()->get()]);
+    
 });
 
 Route::get('/post/{post:slug}', function (Post $Post) {
